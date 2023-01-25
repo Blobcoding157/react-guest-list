@@ -2,7 +2,7 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
 
-const customers = [{ first: 'Steve', last: 'Stevenson', isAttending: false }];
+const customers = [{ first: 'Mister', last: 'Testing', isAttending: false }];
 
 export default function GuestElement() {
   const [restaurantCustomers, setRestaurantCustomers] = useState(customers);
@@ -63,6 +63,7 @@ export default function GuestElement() {
 
                 {customer.isAttending ? ' is Attending!' : ''}
                 <input
+                  aria-label="attending"
                   type="checkbox"
                   checked={customer.isAttending}
                   onChange={(event) => {
