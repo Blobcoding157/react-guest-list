@@ -71,13 +71,14 @@ export default function GuestElement() {
                     customer.isAttending = event.currentTarget.checked;
                   }}
                 />
-                <br />
+
                 <button
+                  aria-label={`Remove ${customer.first} ${customer.last}`}
                   onClick={() => {
                     deleteHandler(`${customer.first}${customer.last}`);
                   }}
                 >
-                  Remove {customer.first}
+                  X
                 </button>
               </li>
             );
