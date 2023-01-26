@@ -2,6 +2,10 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
 
+const headerColor = css`
+  color: #ff0fff;
+`;
+
 // Base URL
 const baseUrl = 'http://localhost:4000';
 
@@ -30,12 +34,12 @@ export default function GuestElement() {
   }, [isToUpdated]);
 
   // Getting a single guest (aka GET /guests/:id)
-  async function getGuest(id) {
-    const response = await fetch(`${baseUrl}/guests/:${id}`);
-    const guest = await response.json();
-    setIsToUpdated(!isToUpdated);
-    return guest;
-  }
+  // async function getGuest(id) {
+  //   const response = await fetch(`${baseUrl}/guests/:${id}`);
+  //   const guest = await response.json();
+  //   setIsToUpdated(!isToUpdated);
+  //   return guest;
+  // }
 
   // Creating a new guest (aka POST /guests)
   async function setGuest(firstInp, lastInp) {
@@ -70,10 +74,11 @@ export default function GuestElement() {
 
   // Deleting a guest (aka DELETE /guests/:id)
   async function deleteGuest(id) {
-    const response = await fetch(`${baseUrl}/guests/${id}`, {
+    // const response =
+    await fetch(`${baseUrl}/guests/${id}`, {
       method: 'DELETE',
     });
-    const deletedGuest = await response.json();
+    // const deletedGuest = await response.json();
     setIsToUpdated(!isToUpdated);
   }
   function deleteAll() {
@@ -84,7 +89,7 @@ export default function GuestElement() {
   return (
     <>
       <div>
-        <label>
+        <label css={headerColor}>
           First name
           <input
             disabled={isInputDisabled}
