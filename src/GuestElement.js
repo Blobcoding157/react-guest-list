@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 const makeItdissapear = css`
   font-size: 0px;
-  border-radius: 5px;
 `;
 
 const inputContainer = css`
@@ -232,7 +231,7 @@ export default function GuestElement() {
                       await deleteGuest(customer.id);
                     }}
                   >
-                    X
+                    X<div css={makeItdissapear}>Remove</div>
                   </button>
                   <span>
                     {customer.firstName} {customer.lastName}
