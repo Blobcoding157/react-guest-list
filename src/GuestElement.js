@@ -129,6 +129,7 @@ export default function GuestElement() {
   // }
 
   // Creating a new guest (aka POST /guests)
+
   async function setGuest(firstInp, lastInp) {
     const response = await fetch(`${baseUrl}/guests`, {
       method: 'POST',
@@ -161,7 +162,6 @@ export default function GuestElement() {
 
   // Deleting a guest (aka DELETE /guests/:id)
   async function deleteGuest(id) {
-    // const response =
     await fetch(`${baseUrl}/guests/${id}`, {
       method: 'DELETE',
     });
@@ -219,12 +219,12 @@ export default function GuestElement() {
       </div>
       <div css={customerContainer}>
         {isLoading ? <div>Loading...</div> : ''}
-        <ul css={customerList}>
-          {!isLoading &&
-            restaurantCustomers.map((customer) => {
-              return (
-                <div key={`Customer-${customer.id}`} data-test-id="guest">
-                  <li>
+        <div data-test-id="guest">
+          <ul css={customerList}>
+            {!isLoading &&
+              restaurantCustomers.map((customer) => {
+                return (
+                  <li key={`Customer-${customer.id}`}>
                     <button
                       css={deleteButton}
                       aria-label={`Remove ${customer.firstName} ${customer.lastName}`}
@@ -241,7 +241,7 @@ export default function GuestElement() {
                     {customer.attending ? ' is Attending!' : ''}
                     <input
                       css={boxTick}
-                      aria-label="attending"
+                      aria-label={`${customer.firstName} ${customer.lastName} attending`}
                       type="checkbox"
                       checked={customer.attending}
                       onChange={async (event) => {
@@ -251,10 +251,10 @@ export default function GuestElement() {
                       }}
                     />
                   </li>
-                </div>
-              );
-            })}
-        </ul>
+                );
+              })}
+          </ul>
+        </div>
       </div>
     </>
   );
