@@ -222,8 +222,8 @@ export default function GuestElement() {
                     <button
                       css={deleteButton}
                       aria-label={`Remove ${customer.firstName} ${customer.lastName}`}
-                      onClick={() => {
-                        deleteGuest(customer.id);
+                      onClick={async () => {
+                        await deleteGuest(customer.id);
                       }}
                     >
                       X
@@ -233,13 +233,17 @@ export default function GuestElement() {
                     </span>
 
                     {customer.attending ? ' is Attending!' : ''}
+
                     <input
                       css={boxTick}
                       aria-label="attending"
                       type="checkbox"
                       checked={customer.attending}
-                      onChange={(event) => {
-                        updateGuest(customer.id, event.currentTarget.checked);
+                      onChange={async (event) => {
+                        await updateGuest(
+                          customer.id,
+                          event.currentTarget.checked,
+                        );
                       }}
                     />
                   </div>
