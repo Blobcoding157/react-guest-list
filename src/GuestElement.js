@@ -217,39 +217,41 @@ export default function GuestElement() {
           delete all
         </button>
       </div>
-      <div data-test-id="guest" css={customerContainer}>
+      <div css={customerContainer}>
         {isLoading ? <div>Loading...</div> : ''}
         <ul css={customerList}>
           {!isLoading &&
             restaurantCustomers.map((customer) => {
               return (
-                <li key={`Customer-${customer.id}`}>
-                  <button
-                    css={deleteButton}
-                    aria-label={`Remove ${customer.firstName} ${customer.lastName}`}
-                    onClick={async () => {
-                      await deleteGuest(customer.id);
-                    }}
-                  >
-                    X<div css={makeItdissapear}>Remove</div>
-                  </button>
-                  <span>
-                    {customer.firstName} {customer.lastName}
-                  </span>
+                <div key={`Customer-${customer.id}`} data-test-id="guest">
+                  <li>
+                    <button
+                      css={deleteButton}
+                      aria-label={`Remove ${customer.firstName} ${customer.lastName}`}
+                      onClick={async () => {
+                        await deleteGuest(customer.id);
+                      }}
+                    >
+                      X<div css={makeItdissapear}>Remove</div>
+                    </button>
+                    <span>
+                      {customer.firstName} {customer.lastName}
+                    </span>
 
-                  {customer.attending ? ' is Attending!' : ''}
-                  <input
-                    css={boxTick}
-                    aria-label="attending"
-                    type="checkbox"
-                    checked={customer.attending}
-                    onChange={async (event) => {
-                      setIsAttending(event.currentTarget.checked);
+                    {customer.attending ? ' is Attending!' : ''}
+                    <input
+                      css={boxTick}
+                      aria-label="attending"
+                      type="checkbox"
+                      checked={customer.attending}
+                      onChange={async (event) => {
+                        setIsAttending(event.currentTarget.checked);
 
-                      await updateGuest(customer.id);
-                    }}
-                  />
-                </li>
+                        await updateGuest(customer.id);
+                      }}
+                    />
+                  </li>
+                </div>
               );
             })}
         </ul>
