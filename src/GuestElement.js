@@ -141,19 +141,19 @@ export default function GuestElement() {
         lastName: lastInp.toString(),
       }),
     });
-    const createdGuest = await response.json();
+    // const createdGuest = await response.json();
     // setIsToUpdated(!isToUpdated);
     // return createdGuest;
   }
 
   // Updating a guest (aka PUT /guests/:id)
-  async function updateGuest(id) {
+  async function updateGuest(id, val) {
     await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ attending: isAttending }),
+      body: JSON.stringify({ attending: val }),
     });
     setIsToUpdated(!isToUpdated);
     // const updatedGuest = await response.json();
@@ -173,6 +173,7 @@ export default function GuestElement() {
       await deleteGuest(customer.id);
     });
   }
+
   return (
     <>
       <div css={inputContainer}>
@@ -242,13 +243,14 @@ export default function GuestElement() {
                     {customer.attending ? ' is Attending!' : ''}
                     <input
                       css={boxTick}
-                      aria-label={`${customer.firstName} ${customer.lastName} attending`}
+                      aria-label="attending"
                       type="checkbox"
                       checked={customer.attending}
                       onChange={async (event) => {
-                        setIsAttending(event.currentTarget.checked);
-
-                        await updateGuest(customer.id);
+                        await updateGuest(
+                          customer.id,
+                          event.currentTarget.checked,
+                        );
                       }}
                     />
                   </div>
