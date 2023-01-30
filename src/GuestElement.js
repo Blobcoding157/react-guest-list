@@ -142,8 +142,8 @@ export default function GuestElement() {
       }),
     });
     const createdGuest = await response.json();
-    setIsToUpdated(!isToUpdated);
-    return createdGuest;
+    // setIsToUpdated(!isToUpdated);
+    // return createdGuest;
   }
 
   // Updating a guest (aka PUT /guests/:id)
@@ -157,7 +157,7 @@ export default function GuestElement() {
     });
     const updatedGuest = await response.json();
     setIsToUpdated(!isToUpdated);
-    return updatedGuest;
+    // return updatedGuest;
   }
 
   // Deleting a guest (aka DELETE /guests/:id)
