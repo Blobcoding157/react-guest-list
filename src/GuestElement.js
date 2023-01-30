@@ -49,7 +49,6 @@ const button = css`
   }
 `;
 const deleteButton = css`
-  // padding: 5px 5px;
   font-size: 20px;
   margin: 10px;
   border: thin;
@@ -87,11 +86,6 @@ const customerContainer = css`
 const customerList = css`
   list-style: none;
 `;
-// Base URL physical Server
-
-// const baseUrl = 'http://localhost:4000';
-
-// Base URL with Replit
 
 const baseUrl =
   'https://express-guest-list-api-memory-data-store-1.blobcoding157.repl.co';
@@ -105,7 +99,6 @@ export default function GuestElement() {
 
   const [isInputDisabled, setIsInputDisabled] = useState(true);
 
-  const [isAttending, setIsAttending] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   // Getting all guests (aka GET /guests)
@@ -142,7 +135,7 @@ export default function GuestElement() {
       }),
     });
     // const createdGuest = await response.json();
-    // setIsToUpdated(!isToUpdated);
+    setIsToUpdated(!isToUpdated);
     // return createdGuest;
   }
 
@@ -201,7 +194,6 @@ export default function GuestElement() {
               if (event.key === 'Enter') {
                 if (first && last) {
                   await setGuest(first, last);
-                  setIsToUpdated(!isToUpdated);
                   setFirst('');
                   setLast('');
                 }
@@ -230,8 +222,8 @@ export default function GuestElement() {
                     <button
                       css={deleteButton}
                       aria-label={`Remove ${customer.firstName} ${customer.lastName}`}
-                      onClick={async () => {
-                        await deleteGuest(customer.id);
+                      onClick={() => {
+                        deleteGuest(customer.id);
                       }}
                     >
                       X
@@ -246,11 +238,8 @@ export default function GuestElement() {
                       aria-label="attending"
                       type="checkbox"
                       checked={customer.attending}
-                      onChange={async (event) => {
-                        await updateGuest(
-                          customer.id,
-                          event.currentTarget.checked,
-                        );
+                      onChange={(event) => {
+                        updateGuest(customer.id, event.currentTarget.checked);
                       }}
                     />
                   </div>
