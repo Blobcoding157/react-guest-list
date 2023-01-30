@@ -221,11 +221,11 @@ export default function GuestElement() {
         {isLoading ? <div>Loading...</div> : ''}
 
         <ul css={customerList}>
-          <div data-test-id="guest">
-            {!isLoading &&
-              restaurantCustomers.map((customer) => {
-                return (
-                  <li key={`Customer-${customer.id}`}>
+          {!isLoading &&
+            restaurantCustomers.map((customer) => {
+              return (
+                <li key={`Customer-${customer.id}`}>
+                  <div data-test-id="guest">
                     <button
                       css={deleteButton}
                       aria-label={`Remove ${customer.firstName} ${customer.lastName}`}
@@ -251,10 +251,10 @@ export default function GuestElement() {
                         await updateGuest(customer.id);
                       }}
                     />
-                  </li>
-                );
-              })}
-          </div>
+                  </div>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </>
