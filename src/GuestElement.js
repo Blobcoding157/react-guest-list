@@ -148,15 +148,15 @@ export default function GuestElement() {
 
   // Updating a guest (aka PUT /guests/:id)
   async function updateGuest(id) {
-    const response = await fetch(`${baseUrl}/guests/${id}`, {
+    await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ attending: isAttending }),
     });
-    const updatedGuest = await response.json();
     setIsToUpdated(!isToUpdated);
+    // const updatedGuest = await response.json();
     // return updatedGuest;
   }
 
