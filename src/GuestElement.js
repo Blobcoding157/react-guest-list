@@ -219,8 +219,9 @@ export default function GuestElement() {
       </div>
       <div css={customerContainer}>
         {isLoading ? <div>Loading...</div> : ''}
-        <div data-test-id="guest">
-          <ul css={customerList}>
+
+        <ul css={customerList}>
+          <div data-test-id="guest">
             {!isLoading &&
               restaurantCustomers.map((customer) => {
                 return (
@@ -253,8 +254,8 @@ export default function GuestElement() {
                   </li>
                 );
               })}
-          </ul>
-        </div>
+          </div>
+        </ul>
       </div>
     </>
   );
