@@ -232,7 +232,7 @@ export default function GuestElement() {
                         await deleteGuest(customer.id);
                       }}
                     >
-                      X<div css={makeItdissapear}>Remove</div>
+                      X
                     </button>
                     <span>
                       {customer.firstName} {customer.lastName}
