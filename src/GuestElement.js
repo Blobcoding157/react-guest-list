@@ -129,6 +129,7 @@ export default function GuestElement() {
   // }
 
   // Creating a new guest (aka POST /guests)
+
   async function setGuest(firstInp, lastInp) {
     const response = await fetch(`${baseUrl}/guests`, {
       method: 'POST',

@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 const container = css`
   border: double;
   min-block-size: 600px;
-  border-color: tomato;
+  border-color: coral;
   background-color: gainsboro;
   align-items: flex-start;
   display: flex;
