@@ -49,7 +49,6 @@ const button = css`
   }
 `;
 const deleteButton = css`
-  // padding: 5px 5px;
   font-size: 20px;
   margin: 10px;
   border: thin;
@@ -87,11 +86,6 @@ const customerContainer = css`
 const customerList = css`
   list-style: none;
 `;
-// Base URL physical Server
-
-// const baseUrl = 'http://localhost:4000';
-
-// Base URL with Replit
 
 const baseUrl =
   'https://express-guest-list-api-memory-data-store-1.blobcoding157.repl.co';
@@ -105,7 +99,6 @@ export default function GuestElement() {
 
   const [isInputDisabled, setIsInputDisabled] = useState(true);
 
-  const [isAttending, setIsAttending] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   // Getting all guests (aka GET /guests)
@@ -141,28 +134,27 @@ export default function GuestElement() {
         lastName: lastInp.toString(),
       }),
     });
-    const createdGuest = await response.json();
+    // const createdGuest = await response.json();
     setIsToUpdated(!isToUpdated);
-    return createdGuest;
+    // return createdGuest;
   }
 
   // Updating a guest (aka PUT /guests/:id)
-  async function updateGuest(id) {
-    const response = await fetch(`${baseUrl}/guests/${id}`, {
+  async function updateGuest(id, val) {
+    await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ attending: isAttending }),
+      body: JSON.stringify({ attending: val }),
     });
-    const updatedGuest = await response.json();
     setIsToUpdated(!isToUpdated);
-    return updatedGuest;
+    // const updatedGuest = await response.json();
+    // return updatedGuest;
   }
 
   // Deleting a guest (aka DELETE /guests/:id)
   async function deleteGuest(id) {
-    // const response =
     await fetch(`${baseUrl}/guests/${id}`, {
       method: 'DELETE',
     });
@@ -174,6 +166,7 @@ export default function GuestElement() {
       await deleteGuest(customer.id);
     });
   }
+
   return (
     <>
       <div css={inputContainer}>
@@ -201,7 +194,6 @@ export default function GuestElement() {
               if (event.key === 'Enter') {
                 if (first && last) {
                   await setGuest(first, last);
-                  setIsToUpdated(!isToUpdated);
                   setFirst('');
                   setLast('');
                 }
@@ -218,38 +210,43 @@ export default function GuestElement() {
           delete all
         </button>
       </div>
-      <div data-test-id="guest" css={customerContainer}>
+      <div css={customerContainer}>
         {isLoading ? <div>Loading...</div> : ''}
+
         <ul css={customerList}>
           {!isLoading &&
             restaurantCustomers.map((customer) => {
               return (
                 <li key={`Customer-${customer.id}`}>
-                  <button
-                    css={deleteButton}
-                    aria-label={`Remove ${customer.firstName} ${customer.lastName}`}
-                    onClick={async () => {
-                      await deleteGuest(customer.id);
-                    }}
-                  >
-                    X<div css={makeItdissapear}>Remove</div>
-                  </button>
-                  <span>
-                    {customer.firstName} {customer.lastName}
-                  </span>
+                  <div data-test-id="guest">
+                    <button
+                      css={deleteButton}
+                      aria-label={`Remove ${customer.firstName} ${customer.lastName}`}
+                      onClick={async () => {
+                        await deleteGuest(customer.id);
+                      }}
+                    >
+                      X
+                    </button>
+                    <span>
+                      {customer.firstName} {customer.lastName}
+                    </span>
 
-                  {customer.attending ? ' is Attending!' : ''}
-                  <input
-                    css={boxTick}
-                    aria-label="attending"
-                    type="checkbox"
-                    checked={customer.attending}
-                    onChange={async (event) => {
-                      setIsAttending(event.currentTarget.checked);
+                    {customer.attending ? ' is Attending!' : ''}
 
-                      await updateGuest(customer.id);
-                    }}
-                  />
+                    <input
+                      css={boxTick}
+                      aria-label="attending"
+                      type="checkbox"
+                      checked={customer.attending}
+                      onChange={async (event) => {
+                        await updateGuest(
+                          customer.id,
+                          event.currentTarget.checked,
+                        );
+                      }}
+                    />
+                  </div>
                 </li>
               );
             })}
